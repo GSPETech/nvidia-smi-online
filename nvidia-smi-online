@@ -1,0 +1,13 @@
+[Unit]
+Description=NVIDIA-SMI Monitor Service
+After=network.target
+
+[Service]
+User=root
+WorkingDirectory=/home/gspe-ai1/nvidia-smi-online
+ExecStart=/home/gspe-ai1/nvidia-smi-online/python3 /home/gspe-ai1/nvidia-smi-online/app.py
+Restart=always
+Environment="FLASK_ENV=production"
+
+[Install]
+WantedBy=multi-user.target
