@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>NVIDIA-SMI Monitor</title>
+    <style>
+        body {
+            font-family: monospace;
+            padding: 20px;
+        }
+        pre {
+            background-color: #f4f4f4;
+            border: 1px solid #ccc;
+            padding: 15px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+    </style>
+</head>
+<body>
+    <h1>NVIDIA-SMI Output</h1>
+    <pre id="nvidia-smi-output"></pre>
+
+    <script>
+        async function fetchData() {
+            try {
+                const response = await fetch(`${window.location.origin}/api/nvidia-smi`);
+                if (!response.ok) throw new Error('Network response was not ok.');
+                const data = await response.json();
+                document.getElementById('nvidia-smi-output').textContent = data.output;
+            } catch (error) {
+                console.error('Failed to fetch nvidia-smi output:', error);
+            }
+        }
+
+        // Fetch data every second
+        setInterval(fetchData, 1000);
+
+        // Initial fetch
+        fetchData();
+    </script>
+</body>
+</html>
